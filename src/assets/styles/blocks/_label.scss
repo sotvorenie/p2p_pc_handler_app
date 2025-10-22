@@ -1,0 +1,46 @@
+@use '../helpers/index' as *;
+@use '../variables' as *;
+
+.label {
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: rem(30);
+  }
+
+  &__text {
+    font-size: rem(14);
+    left: rem(12);
+    transform: translateY(-50%);
+    background: $color-dark-alt;
+    padding-left: rem(5);
+    padding-right: rem(5);
+    transition-property: top;
+    transition-duration: $transition-duration-fast;
+    top: 0;
+
+    &.is-dark {
+      background: $color-dark;
+    }
+
+    @include hover {
+      & ~ input {
+        border-color: $color-accent;
+      }
+    }
+  }
+
+  &__error {
+    font-size: rem(12);
+    left: rem(5);
+    top: 105%;
+    color: $color-accent;
+  }
+
+  &__counter {
+    top: 70%;
+    background: $color-dark-alt;
+    padding: rem(5);
+    right: rem(15);
+  }
+}

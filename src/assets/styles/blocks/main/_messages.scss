@@ -1,0 +1,55 @@
+@use '../../helpers/index' as *;
+@use '../../variables' as *;
+
+.messages {
+  background: $color-dark-alt;
+  width: 100%;
+  height: rem(400);
+  border-radius: $radius-regular;
+  padding: rem(10);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.is-dark {
+    background: $color-dark;
+
+    .messages__delete {
+      background: $color-dark;
+    }
+
+    .messages__item {
+      background-color: $color-dark-alt;
+    }
+  }
+
+  &__delete {
+    @include square(40);
+
+    top: 0;
+    left: 100%;
+    padding: 0;
+    background: $color-dark-alt;
+  }
+
+  &__list {
+    width: 100%;
+    padding-left: 0;
+
+    & > * + * {
+      margin-top: rem(10);
+    }
+  }
+
+  &__item {
+    background: $color-dark;
+    border-radius: $radius-medium;
+    padding: rem(8);
+    border-left: $border-accent;
+    width: 100%;
+    margin-left: 0;
+
+    & > * + * {
+      margin-top: rem(10);
+    }
+  }
+}

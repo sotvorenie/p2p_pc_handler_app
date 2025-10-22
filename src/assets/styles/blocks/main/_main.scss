@@ -1,0 +1,127 @@
+@use '../../helpers/index' as *;
+@use '../../variables' as *;
+
+.main {
+
+  &__inner {
+    padding: rem(20) rem(12);
+  }
+
+  &__open-left {
+    margin-bottom: rem(20);
+  }
+
+  &__tabs {
+    margin-bottom: rem(20);
+  }
+
+  &__tab {
+    width: fit-content;
+    border: $border-light-alt;
+    border-radius: $radius-regular;
+    padding: rem(10);
+
+    &.is-active {
+      border-color: $color-accent;
+    }
+  }
+
+  &__title {
+    margin-bottom: rem(10);
+  }
+
+  &__item {
+    padding: rem(10);
+    border: $border-light-alt;
+    border-radius: $radius-medium;
+    margin-bottom: rem(20);
+
+    .main__commands {
+      button {
+        margin-right: rem(5);
+        margin-bottom: rem(10);
+      }
+    }
+
+    &-btn {
+      //flex: 1 0 0;
+      flex-grow: 1;
+      font-size: rem(14);
+    }
+  }
+
+  &__btn-tabs {
+    margin-bottom: rem(30);
+    align-items: center;
+
+    & > * + * {
+      margin-left: rem(10);
+    }
+  }
+
+  &__btn {
+    font-size: rem(14);
+
+    &.is-active {
+      border-color: $color-accent;
+    }
+  }
+
+  &__modal-info {
+    white-space: pre-line;
+    line-height: 200%;
+  }
+
+  &__form {
+    &:nth-child(2) {
+      padding-top: rem(15);
+      margin-bottom: rem(20);
+    }
+  }
+
+  &__select {
+    background: transparent;
+    border-radius: $radius-regular;
+    overflow: hidden;
+    margin-bottom: rem(20);
+    position: relative;
+    display: block;
+
+    /* Прячем скроллбар в select для всех платформ */
+    &::-webkit-scrollbar { display: none; }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    select {
+      border-radius: $radius-regular;
+      padding: rem(10);
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: $border-light-alt;
+      color: $color-light;
+
+      &:focus {
+        outline: none;
+        border-color: $color-accent;
+      }
+
+      option {
+        background: $color-dark;
+        color: $color-light;
+      }
+    }
+
+    i {
+      @include square(20);
+      @include abs-y;
+
+      right: rem(8);
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+}

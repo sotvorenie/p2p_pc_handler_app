@@ -1,0 +1,107 @@
+@use 'helpers/index' as *;
+@use 'variables' as *;
+
+/* --- Глобальные сбросы и фиксы --- */
+html, body, #app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#app {
+  padding-top: rem(20);
+  overflow-x: hidden;
+}
+
+/* Блокировка скролла при открытых модалках */
+html.is-lock {
+  overflow: hidden;
+}
+
+body {
+  @include fluid-text(18, 14);
+
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family-base;
+  color: $color-light;
+  background: $color-dark-alt;
+
+  /* убираем горизонтальный скролл */
+  overflow-x: hidden;
+
+  /* принудительно отключаем overscroll-блинг на Android */
+  overscroll-behavior-y: none;
+}
+
+/* Важно! Не используем 100vh / 100vw, только 100% */
+#app {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Контент */
+main {
+  flex-grow: 1;
+}
+
+/* Заголовки */
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  font-weight: 600;
+  margin: 0;
+}
+
+h1, .h1 { @include fluid-text(72, 32); }
+h2, .h2 { @include fluid-text(48, 24); }
+h3, .h3 { @include fluid-text(40, 18); }
+h4, .h4 { @include fluid-text(32, 18); }
+h5, .h5 { @include fluid-text(24, 16); }
+h6, .h6 { @include fluid-text(18, 14); }
+
+/* Переходы и интерактив */
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: $transition-duration;
+  color: currentColor;
+}
+
+/* Сброс кнопок / инпутов */
+button, input, textarea {
+  @include reset_button;
+  transition-duration: $transition-duration;
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: $color-light-alt;
+}
+
+/* Ссылки */
+a {
+  color: inherit;
+  text-decoration: none;
+
+  @include hover {
+    color: $color-accent !important;
+  }
+}

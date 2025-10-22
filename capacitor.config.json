@@ -1,0 +1,14 @@
+{
+  "appId": "com.p2p_pc_handler.app",
+  "appName": "p2p_pc_handler",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "cleartext": true,
+    "androidScheme": "http",
+    "iosScheme": "http"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

@@ -1,0 +1,24 @@
+@use '../helpers/index' as *;
+@use '../variables' as *;
+
+.left-modal {
+  inset: 0;
+  backdrop-filter: blur(3px) brightness(0.75);
+  width: 100%;
+  height: 100%;
+  padding-top: rem(20);
+
+  &__close {
+    @include square(30);
+
+    top: rem(20);
+    right: rem(20);
+  }
+
+  &__content {
+    background: $color-dark;
+    padding: rem(75) rem(20) rem(20);
+    width: 100%;
+    height: 100%;
+  }
+}

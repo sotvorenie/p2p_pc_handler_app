@@ -1,0 +1,29 @@
+@use '../helpers/index' as *;
+@use '../variables' as *;
+
+.input {
+  background: $color-dark-alt;
+  height: rem(50);
+  border-radius: $radius-medium;
+  width: 100%;
+  border: $border-light-alt;
+  padding-left: rem(15);
+  padding-right: rem(15);
+
+  & > * + * {
+    margin-top: rem(10);
+  }
+
+  &.is-dark {
+    background: $color-dark;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+  }
+
+  @include hover {
+    border-color: $color-accent;
+  }
+}

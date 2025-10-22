@@ -1,0 +1,117 @@
+@use 'helpers/index' as *;
+@use 'variables' as *;
+
+/* ---------- Контейнер ---------- */
+.container {
+  max-width: calc($container-width + $container-padding-x * 2);
+}
+
+/* ---------- Визуально скрытый элемент ---------- */
+.visually-hidden {
+  @include visually-hidden;
+}
+
+/* ---------- Скрыть на мобильных ---------- */
+.hidden-mobile {
+  @include mobile {
+    display: none !important;
+  }
+}
+
+/* ---------- SVG перекраска ---------- */
+.recolor-svg {
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    &[stroke]:not([stroke="none"]),
+    *[stroke]:not([stroke="none"]) {
+      stroke: currentColor !important;
+    }
+
+    &[fill]:not([fill="none"]),
+    *[fill]:not([fill="none"]) {
+      fill: currentColor !important;
+    }
+
+    path,
+    circle,
+    rect,
+    polygon,
+    polyline,
+    line,
+    ellipse {
+      &[stroke]:not([stroke="none"]) {
+        stroke: currentColor !important;
+      }
+      &[fill]:not([fill="none"]) {
+        fill: currentColor !important;
+      }
+    }
+  }
+}
+
+/* ---------- Контейнер для изображений ---------- */
+.img-container {
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+
+  /* Ховер-эффект на десктопе, а на мобильных — активный отклик */
+  @include hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-duration ease;
+    display: block;
+  }
+}
+
+/* ---------- SVG-иконки ---------- */
+.i-svg {
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+/* ---------- Свайпер с правым отступом ---------- */
+/* 🚫 Было: width: calc(100vw - padding)
+   ✅ Стало: width: 100% и padding с safe-area */
+.swiper-right-no-padding {
+  width: 100%;
+  padding-right: max($container-padding-x, env(safe-area-inset-right)) !important;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ---------- Цвет при наведении ---------- */
+.hover-color-accent {
+  @include hover {
+    color: $color-accent;
+    border-color: $color-accent;
+  }
+
+  /* fallback для тач */
+  &:active {
+    color: $color-accent;
+    border-color: $color-accent;
+  }
+}
+
+/* ---------- Кнопка с SVG ---------- */
+.button-width-svg {
+  svg {
+    width: 80%;
+    height: auto;
+    display: block;
+  }
+}

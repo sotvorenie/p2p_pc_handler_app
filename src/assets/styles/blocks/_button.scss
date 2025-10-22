@@ -1,0 +1,47 @@
+@use '../helpers/index' as *;
+@use '../variables' as *;
+
+.button {
+  font-size: rem(17);
+  display: block;
+  padding-left: rem(15);
+  padding-right: rem(15);
+  height: rem(50);
+  border: $border-light-alt;
+  border-radius: $radius-medium;
+
+  &:not([disabled]) {
+    @include hover {
+      border: $border-accent;
+      background: $color-accent;
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    filter: opacity(0.5);
+  }
+
+  span {
+    @include flex-center();
+  }
+
+  i {
+    @include abs-center;
+  }
+
+  &-big-radius {
+    border-radius: $radius;
+  }
+
+  &-ball {
+    @include flex-center();
+
+    border: $border-light-alt;
+    border-radius: 50%;
+  }
+
+  &-w-100 {
+    width: 100%;
+  }
+}
