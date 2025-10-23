@@ -19,18 +19,13 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  isRelative: {
-    type: Boolean,
-    default: true,
-  },
 })
 
 </script>
 
 <template>
   <button :class="{
-            'button': true,
-            'position-relative': isRelative,
+            'button position-relative': true,
             'button-w-100': isFullWidth,
           }"
           :type="isSubmit ? 'submit' : 'button'"

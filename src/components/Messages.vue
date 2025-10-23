@@ -25,7 +25,6 @@ const handleDelete = () => {
         }"
   >
     <Button class="messages__delete button-width-svg button-ball recolor-svg position-sticky"
-            :is-relative="false"
             @click="handleDelete"
     >
       <Delete/>
