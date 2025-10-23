@@ -1,0 +1,37 @@
+@use '../helpers/index' as *;
+@use '../variables' as *;
+
+.list-loading {
+  width: 100%;
+  padding-left: 0;
+
+  & > * + * {
+    margin-top: rem(10);
+  }
+
+  &__item {
+    width: 100%;
+    height: rem(25);
+    border-radius: $radius-medium;
+    background: $color-dark-alt;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      box-shadow: 0 0 rem(30) rem(20) $color-light;
+      top: 0;
+      animation: loadList 1s linear infinite;
+    }
+
+    @keyframes loadList {
+      from {
+        left: rem(-50);
+      }
+      to {
+        left: calc(100% + #{rem(50)});
+      }
+    }
+  }
+}

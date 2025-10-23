@@ -152,8 +152,6 @@ const connectionStatusText = computed(() => {
 const handleConnection = (event) => {
   const check = onSubmit(event);
 
-  console.log(check)
-
   if (check) {
 
     if (connectionStore?.isConnected) {

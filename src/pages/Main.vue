@@ -89,7 +89,10 @@ onUnmounted(() => {
         <Component :is="commandComponents[activeTab]"/>
       </div>
 
-      <img src="../assets/icons/дианочка.png" v-if="!connectionStore.isConnected"/>
+      <img src="../assets/icons/дианочка.webp"
+           alt="Not Connected"
+           v-if="!connectionStore.isConnected"
+      />
 
       <Messages is-dark v-model="connectionStore.mainMessages" v-if="connectionStore.isConnected"/>
     </div>

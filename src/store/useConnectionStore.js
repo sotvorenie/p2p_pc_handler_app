@@ -20,8 +20,6 @@ const useConnectionStore = defineStore('connection', () => {
 
     // токен для аутентификации
     const authToken = import.meta.env.VITE_WS_TOKEN
-    // аутентифицирован ли пользователь или нет
-    const isAuthenticated = ref(false)
 
     // список сообщений в блоке подключения
     const connectionMessages = ref([])
@@ -36,13 +34,14 @@ const useConnectionStore = defineStore('connection', () => {
     const showInModalInfo = ref('')
     // последняя отправленная команада (для вывода в модальном окне нужной информации)
     const lastCommand = ref('')
+    // анимация загрузки в модальном окне
+    const modalLoadingVisible = ref(false)
 
     // подключение к ПК
     const connectToPc = async () => {
         isConnecting.value = true
         isConnected.value = false
         connectionError.value = ''
-        isAuthenticated.value = false
 
         try {
             addLogConnection(
@@ -70,7 +69,7 @@ const useConnectionStore = defineStore('connection', () => {
 
                     if (data.status === 'success') {
                         if (data.type === 'auth_result') {
-                            isAuthenticated.value = true
+                            isConnected.value = true
                             addLogConnection(`✅${data.data}`, 'success')
                             addLogConnection('🚀 Готово к отправке команд', 'success')
                         } else if (data.type === 'find_installed_programs') {
@@ -90,8 +89,8 @@ const useConnectionStore = defineStore('connection', () => {
                         }
                     } else if (data.status === 'error') {
                         if (data.type === 'auth_result') {
-                            isAuthenticated.value = false
-                            addLogConnection(`❌${data.data}`, 'success')
+                            isConnected.value = false
+                            addLogConnection(`❌ ${data.data}`, 'success')
                         }
                         addLog(`❌ ${data.data}`, 'error')
                     } else if (data.status === 'connected') {
@@ -99,6 +98,8 @@ const useConnectionStore = defineStore('connection', () => {
                     } else if (data.status === 'pong') {
                         addLog(`🏓 ${data.data}`, 'response')
                     }
+
+                    modalLoadingVisible.value = false
                 } catch (e) {
                     addLogConnection(`📨 Необработанное сообщение: ${event.data}`, 'response')
                     addLog(`📨 Необработанное сообщение: ${event.data}`, 'response')
@@ -143,7 +144,6 @@ const useConnectionStore = defineStore('connection', () => {
         }
     }
 
-
     // аутентификация
     const authenticate = () => {
         if (!socket.value || socket.value.readyState !== WebSocket.OPEN) {
@@ -154,7 +154,6 @@ const useConnectionStore = defineStore('connection', () => {
         addLogConnection('🔐 Отправка запроса аутентификации...', 'info')
     }
 
-
     // отключение от ПК
     const disconnect = () => {
         if (socket.value) {
@@ -163,7 +162,6 @@ const useConnectionStore = defineStore('connection', () => {
         isConnected.value = false
         isConnecting.value = false
         connectionError.value = ''
-        isAuthenticated.value = false
         addLogConnection('🔌 Отключено от ПК', 'info')
     }
 
@@ -175,6 +173,8 @@ const useConnectionStore = defineStore('connection', () => {
         }
 
         try {
+            modalLoadingVisible.value = true
+
             const message = {
                 command: command,
                 data: data,
@@ -231,6 +231,7 @@ const useConnectionStore = defineStore('connection', () => {
         showInModalInfo,
         PCInfo,
         lastCommand,
+        modalLoadingVisible,
 
         connectToPc,
         disconnect,

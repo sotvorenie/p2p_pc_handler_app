@@ -5,6 +5,7 @@ import Button from "@/components/common/Button.vue";
 import Modal from "@/components/common/Modal.vue";
 
 import useConnectionStore from "@/store/useConnectionStore.js";
+import ListLoading from "@/components/common/ListLoading.vue";
 const connectionStore = useConnectionStore();
 
 //=========================================================//
@@ -47,17 +48,7 @@ const systemCommands = ref([
         </template>
 
         <template #default>
-          <div class="main__modal-info"
-               v-if="connectionStore.lastCommand === 'get_system_info'"
-          >
-            {{connectionStore.PCInfo}}
-          </div>
-
-          <div class="main__modal-info"
-               v-if="connectionStore.lastCommand === 'get_installed_programs'"
-          >
-            {{connectionStore.allPrograms}}
-          </div>
+          <ListLoading v-if="connectionStore.modalLoadingVisible"/>
 
           <div class="main__modal-info" v-else>
             {{connectionStore.showInModalInfo}}

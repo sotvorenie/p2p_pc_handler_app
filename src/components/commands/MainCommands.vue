@@ -5,6 +5,7 @@ import Button from "@/components/common/Button.vue";
 import Modal from "@/components/common/Modal.vue";
 
 import useConnectionStore from "@/store/useConnectionStore.js";
+import Loading from "@/components/common/Loading.vue";
 const connectionStore = useConnectionStore();
 
 //=========================================================//
@@ -68,20 +69,24 @@ const handleQuickCommand = (cmd) => {
         </template>
 
         <template #default>
-          <div class="main__modal-info"
-               v-if="connectionStore.lastCommand === 'get_system_info'"
-          >
-            {{connectionStore.PCInfo}}
-          </div>
+          <Loading v-if="connectionStore.modalLoadingVisible"/>
 
-          <div class="main__modal-info"
-               v-else-if="connectionStore.lastCommand === 'find_installed_programs'"
-          >
-            {{connectionStore.allPrograms}}
-          </div>
+          <div v-else>
+            <div class="main__modal-info"
+                 v-if="connectionStore.lastCommand === 'get_system_info'"
+            >
+              {{connectionStore.PCInfo}}
+            </div>
 
-          <div class="main__modal-info" v-else>
-            {{connectionStore.showInModalInfo}}
+            <div class="main__modal-info"
+                 v-else-if="connectionStore.lastCommand === 'find_installed_programs'"
+            >
+              {{connectionStore.allPrograms}}
+            </div>
+
+            <div class="main__modal-info" v-else>
+              {{connectionStore.showInModalInfo}}
+            </div>
           </div>
         </template>
       </Modal>
