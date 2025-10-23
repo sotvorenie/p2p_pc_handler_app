@@ -28,8 +28,10 @@ watch(
 
   <Teleport to="body">
     <Transition name="top">
-      <div class="message position-absolute" v-if="visible">
-        {{text}}
+      <div class="message-wrapper" v-if="visible">
+        <div class="message">
+          {{text}}
+        </div>
       </div>
     </Transition>
   </Teleport>

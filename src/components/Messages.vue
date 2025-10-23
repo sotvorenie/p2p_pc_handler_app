@@ -25,19 +25,25 @@ const handleDelete = () => {
         }"
   >
     <Button class="messages__delete button-width-svg button-ball recolor-svg position-sticky"
+            :is-relative="false"
             @click="handleDelete"
     >
       <Delete/>
     </Button>
 
-    <ul class="messages__list flex flex-column">
+    <TransitionGroup class="messages__list flex flex-column"
+                     tag="ul"
+                     name="messages"
+    >
       <li class="messages__item flex flex-column"
-          v-for="message in messages"
+          v-for="(message, index) in messages"
+          :key="message"
+          :style="{ '--index': index }"
       >
         <span class="messages__time">{{message.time}}</span>
         <span class="messages__text">{{message.text}}</span>
       </li>
-    </ul>
+    </TransitionGroup>
   </div>
 
 </template>

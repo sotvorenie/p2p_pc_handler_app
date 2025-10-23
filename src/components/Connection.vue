@@ -289,7 +289,11 @@ onMounted(() => {
         </form>
 
         <div class="connection__status">
-          {{connectionStatusText}}
+          <Transition name="fade" mode="out-in">
+                <span :key="connectionStatusText">
+                {{connectionStatusText}}
+              </span>
+          </Transition>
         </div>
 
         <Messages v-model="connectionStore.connectionMessages"/>

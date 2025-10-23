@@ -1,14 +1,18 @@
 @use '../helpers/index' as *;
 @use '../variables' as *;
 
-.message {
+.message-wrapper {
+  @include flex-center();
+
+  width: 100%;
   position: fixed;
   top: rem(20);
-  left: 50%;
-  transform: translateX(-50%);
+  z-index: 100000;
+}
+
+.message {
   background: $color-dark-alt;
   border: $border-light-alt;
   padding: rem(10) rem(20);
   border-radius: $radius-medium;
-  z-index: 100000;
 }
