@@ -198,13 +198,18 @@ onMounted(() => {
           <template #default>
             <div v-if="!isRedactIpList">
               <h5 class="connection__title text-center">Список добавленных IP-адресов</h5>
-              <ul class="connection__list flex flex-column" v-if="ipList?.length">
+              <TransitionGroup tag="ul"
+                               class="connection__list flex flex-column"
+                               name="messages"
+                               v-if="ipList?.length"
+              >
                 <li v-for="(ip, index) in ipList"
-                    :key="index"
+                    :key="ip.ip"
                     :class="{
                       'connection__item flex flex-align-center flex-between': true,
                       'is-active': connectionStore?.ipName === ip.ip
                     }"
+                    :style="{ '--index': index }"
                     @click="handleCopyIp(ip.ip)"
                 >
                   <div class="flex flex-column">
@@ -219,7 +224,7 @@ onMounted(() => {
                     <Delete/>
                   </button>
                 </li>
-              </ul>
+              </TransitionGroup>
             </div>
 
             <div v-else>
