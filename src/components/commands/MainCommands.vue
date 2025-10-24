@@ -3,9 +3,9 @@ import {ref} from "vue";
 
 import Button from "@/components/common/Button.vue";
 import Modal from "@/components/common/Modal.vue";
+import ListLoading from "@/components/common/ListLoading.vue";
 
 import useConnectionStore from "@/store/useConnectionStore.js";
-import Loading from "@/components/common/Loading.vue";
 const connectionStore = useConnectionStore();
 
 //=========================================================//
@@ -69,7 +69,7 @@ const handleQuickCommand = (cmd) => {
         </template>
 
         <template #default>
-          <Loading v-if="connectionStore.modalLoadingVisible"/>
+          <ListLoading v-if="connectionStore.modalLoadingVisible"/>
 
           <div v-else>
             <div class="main__modal-info"
