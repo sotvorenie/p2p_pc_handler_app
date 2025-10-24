@@ -71,7 +71,7 @@ onUnmounted(() => {
               :space-between="20"
               slides-per-view="auto"
               class="main__tabs"
-              v-if="connectionStore.isConnected"
+              v-if="connectionStore.isConnected && !connectionStore.isSleeping"
       >
         <SwiperSlide v-for="(tab, index) in tabs"
                      :key="index"
@@ -85,16 +85,24 @@ onUnmounted(() => {
         </SwiperSlide>
       </Swiper>
 
-      <div class="main__commands" v-if="connectionStore.isConnected">
+      <div class="main__commands" v-if="connectionStore.isConnected && !connectionStore.isSleeping">
         <Component :is="commandComponents[activeTab]"/>
       </div>
+
+      <img src="../assets/icons/diane.jpg"
+           alt="Sleeping"
+           v-if="connectionStore.isConnected && connectionStore.isSleeping"
+      />
 
       <img src="../assets/icons/дианочка.webp"
            alt="Not Connected"
            v-if="!connectionStore.isConnected"
       />
 
-      <Messages is-dark v-model="connectionStore.mainMessages" v-if="connectionStore.isConnected"/>
+      <Messages is-dark
+                v-model="connectionStore.mainMessages"
+                v-if="connectionStore.isConnected && !connectionStore.isSleeping"
+      />
     </div>
   </div>
 

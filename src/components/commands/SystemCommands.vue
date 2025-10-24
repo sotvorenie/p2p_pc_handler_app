@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 import Button from "@/components/common/Button.vue";
 import Modal from "@/components/common/Modal.vue";
@@ -32,7 +32,7 @@ const systemCommands = ref([
                   v-for="cmd in systemCommands"
                   :key="cmd.command"
                   :is-loading="connectionStore?.isConnecting"
-                  :is-disabled="!connectionStore?.isConnected"
+                  :is-disabled="!connectionStore.isConnected"
                   @click="() => {
                         if (cmd.command === 'get_system_resources') {
                           connectionStore.showInModalInfo = ''

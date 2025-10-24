@@ -37,6 +37,9 @@ const useConnectionStore = defineStore('connection', () => {
     // анимация загрузки в модальном окне
     const modalLoadingVisible = ref(false)
 
+    // компьютер спит или нет
+    const isSleeping = ref(false)
+
     // подключение к ПК
     const connectToPc = async () => {
         isConnecting.value = true
@@ -68,6 +71,8 @@ const useConnectionStore = defineStore('connection', () => {
                     const data = JSON.parse(event.data)
 
                     if (data.status === 'success') {
+                        isSleeping.value = data.type === 'system_sleep';
+
                         if (data.type === 'auth_result') {
                             isConnected.value = true
                             addLogConnection(`✅${data.data}`, 'success')
@@ -232,6 +237,8 @@ const useConnectionStore = defineStore('connection', () => {
         PCInfo,
         lastCommand,
         modalLoadingVisible,
+
+        isSleeping,
 
         connectToPc,
         disconnect,
