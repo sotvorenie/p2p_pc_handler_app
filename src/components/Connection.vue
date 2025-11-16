@@ -28,17 +28,17 @@ const connectModalVisible = ref(false)
 //=========================================================//
 //-- для полей ввода IP-адреса --//
 // маска для автоматического проставления точек в IP-адресе
-const formatIp = (value) => {
-  let digits = value.replace(/\D/g, '')
-
-  let result = ''
-  if (digits.length > 0) result += digits.slice(0, 3)
-  if (digits.length > 3) result += '.' + digits.slice(3, 6)
-  if (digits.length > 6) result += '.' + digits.slice(6, 7)
-  if (digits.length > 7) result += '.' + digits.slice(7, 10)
-
-  return result
-}
+// const formatIp = (value) => {
+//   let digits = value.replace(/\D/g, '')
+//
+//   let result = ''
+//   if (digits.length > 0) result += digits.slice(0, 3)
+//   if (digits.length > 3) result += '.' + digits.slice(3, 6)
+//   if (digits.length > 6) result += '.' + digits.slice(6, 7)
+//   if (digits.length > 7) result += '.' + digits.slice(7, 10)
+//
+//   return result
+// }
 //=========================================================//
 
 
@@ -242,9 +242,7 @@ onMounted(() => {
                 <AppInput title="Адрес"
                           name="address"
                           v-model="newIpData.ip"
-                          :max-length="13"
-                          :min-length="11"
-                          @input="newIpData.ip = formatIp($event.target.value)"
+                          @input="newIpData.ip = $event.target.value"
                 />
 
                 <Button class="connection__done" is-submit>Готово</Button>
@@ -272,9 +270,7 @@ onMounted(() => {
                     v-model="connectionStore.ipName"
                     title="IP-адрес"
                     name="ip"
-                    :max-length="13"
-                    :min-length="11"
-                    @input="connectionStore.ipName = formatIp($event.target.value)"
+                    @input="connectionStore.ipName = $event.target.value"
           />
           <AppInput class="connection__input"
                     v-model="connectionStore.portName"
