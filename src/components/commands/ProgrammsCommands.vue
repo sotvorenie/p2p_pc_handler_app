@@ -46,15 +46,34 @@ const startProgram = () => {
 //=========================================================//
 //-- закрытие программ --//
 // название закрываемой программы
-const killProgramName = ref('')
+const closeProgramName = ref('')
 
 
 // клик на "Отправить" для закрытия программы
+const handleCloseProgram = (event) => {
+  onCheckSubmit(event, closeProgram)
+}
+
+// отправка команды для закрытия программы
+const closeProgram = () => {
+  connectionStore?.sendCommand('close_program', closeProgramName.value)
+  closeProgramName.value = ''
+}
+//=========================================================//
+
+
+//=========================================================//
+//-- убийство программ --//
+// название убиваемой программы
+const killProgramName = ref('')
+
+
+// клик на "Отправить" для убийства программы
 const handleKillProgram = (event) => {
   onCheckSubmit(event, killProgram)
 }
 
-// отправка команды для закрытия программы
+// отправка команды для убийства программы
 const killProgram = () => {
   connectionStore?.sendCommand('kill_program', killProgramName.value)
   killProgramName.value = ''
@@ -83,6 +102,14 @@ const killProgram = () => {
       >
         Закрыть
       </Button>
+      <Button :class="{
+                      'main__btn col': true,
+                      'is-active': programActiveTab === 2
+                    }"
+              @click="handleProgramTab(1)"
+      >
+        Убить
+      </Button>
     </div>
 
     <form class="main__form flex flex-column"
@@ -103,9 +130,24 @@ const killProgram = () => {
     <form class="main__form flex flex-column"
           novalidate
           method="post"
-          @submit.prevent="handleKillProgram"
+          @submit.prevent="handleCloseProgram"
           data-js-form
           v-if="programActiveTab === 1"
+    >
+      <AppInput v-model="closeProgramName"
+                title="Название программы"
+                name="kill-program"
+                :is-dark="false"
+      />
+      <Button is-submit :is-disabled="!connectionStore?.isConnected">Отправить</Button>
+    </form>
+
+    <form class="main__form flex flex-column"
+          novalidate
+          method="post"
+          @submit.prevent="handleKillProgram"
+          data-js-form
+          v-if="programActiveTab === 2"
     >
       <AppInput v-model="killProgramName"
                 title="Название программы"

@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
 import Button from "@/components/common/Button.vue";
 import Modal from "@/components/common/Modal.vue";
@@ -17,6 +17,7 @@ const systemCommands = ref([
   { emoji: '💤', label: 'Сон', command: 'system_sleep' },
   { emoji: '⚡', label: 'Выключение', command: 'system_shutdown' },
   { emoji: '❌', label: 'Закрыть все программы', command: 'close_all_programs' },
+  { emoji: '🗑️', label: 'Закрыть все процессы', command: 'close_all_processes' },
 ])
 //=========================================================//
 </script>

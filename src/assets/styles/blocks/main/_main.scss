@@ -53,6 +53,7 @@
   &__btn-tabs {
     margin-bottom: rem(30);
     align-items: center;
+    flex-wrap: nowrap;
 
     & > * + * {
       margin-left: rem(10);
