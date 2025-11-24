@@ -1,6 +1,7 @@
 <script setup>
-import Cross from "@/assets/icons/Cross.vue";
 import {watch} from "vue";
+
+import Cross from "@/assets/icons/Cross.vue";
 
 const visible = defineModel({default: false});
 
@@ -28,7 +29,6 @@ watch(
       document.documentElement.classList.toggle('is-lock', newVal)
     }
 )
-
 </script>
 
 <template>

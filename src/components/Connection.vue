@@ -1,5 +1,7 @@
 <script setup>
-import {computed, onMounted, reactive, ref} from "vue";
+import {computed, onBeforeUnmount, onMounted, reactive, ref} from "vue";
+
+import {App} from "@capacitor/app";
 
 import {onSubmit} from "@/composables/useFormValidation.js";
 
@@ -20,7 +22,7 @@ const connectionStore = useConnectionStore();
 
 //=========================================================//
 //-- модальное окно --//
-// видимость модального окнанастроек подключения (этого компонента)
+// видимость модального окна настроек подключения (этого компонента)
 const connectModalVisible = ref(false)
 //=========================================================//
 
@@ -94,6 +96,9 @@ const getFromLocStoreLastIP = () => {
 
 //=========================================================//
 //-- добавление нового IP-адреса --//
+// видимость модального окна списка ip-адресов
+const ipListModalVisible = ref(false)
+
 // видимость блока добавления нового IP-адреса
 const isRedactIpList = ref(false)
 
@@ -139,7 +144,7 @@ const handleCancelAddIpList = () => {
 
 //=========================================================//
 //-- подключение --//
-// текст-статус подключенияы
+// текст-статус подключения
 const connectionStatusText = computed(() => {
   if (connectionStore.isConnecting) return '🔄 Подключение...'
   if (connectionStore.isConnected) return '✅ Подключено'
@@ -165,12 +170,40 @@ const handleConnection = (event) => {
 }
 //=========================================================//
 
+
+//=========================================================//
+//-- для прослушивания события жеста "Назад" --//
+let backListener = null
+//=========================================================//
+
+
 //=========================================================//
 //-- хуки --//
 // получаем из localStorage: последний запущенный IP и список добавленных IP-адресов
 onMounted(() => {
   getFromLocStoreLastIP()
   getFromLocStore()
+})
+
+// ловим событие назад
+onMounted(() => {
+  backListener = App.addListener('backButton', () => {
+    if (connectModalVisible.value && !ipListModalVisible.value) {
+      connectModalVisible.value = false
+    }
+    if (connectModalVisible.value && ipListModalVisible.value && !isRedactIpList.value) {
+      ipListModalVisible.value = false
+    }
+    if (connectModalVisible.value && ipListModalVisible.value && isRedactIpList.value) {
+      handleCancelAddIpList()
+    }
+  })
+})
+
+onBeforeUnmount(() => {
+  if (backListener) {
+    backListener.remove()
+  }
 })
 //=========================================================//
 </script>
@@ -186,7 +219,7 @@ onMounted(() => {
 
     <template #default>
       <div class="connection position-relative">
-        <Modal :close-visible="!isRedactIpList">
+        <Modal v-model="ipListModalVisible" :close-visible="!isRedactIpList">
           <template #activator="{open}">
             <Button class="connection__open position-absolute"
                     @click="open"

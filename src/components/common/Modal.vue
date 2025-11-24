@@ -1,6 +1,5 @@
 <script setup>
 import Button from "@/components/common/Button.vue";
-import {watch} from "vue";
 
 const visible = defineModel({default: false});
 
